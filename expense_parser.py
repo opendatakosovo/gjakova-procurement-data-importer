@@ -1,20 +1,21 @@
 import csv
 
 from pymongo import MongoClient
-from bson import ObjectId
 
 
 # Connect to default local instance of mongo
 client = MongoClient()
 
 # Get database and collection
-db = client.gjakovadata
-collection = db.procurement2010
+db = client.gjakova
+collection = db.expenses
 
 
-def result():
+def parse():
 
-    with open('Gjakova_2011.csv', 'rb') as csvfile:
+    print "Importing expense data."
+
+    with open('data/expense/2011.csv', 'rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
             group = row[0]
@@ -44,4 +45,4 @@ def remove_comma(number):
     return number.replace(",", "")
 
 
-result()
+parse()
