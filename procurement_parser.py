@@ -32,12 +32,12 @@ def parse():
                     value_of_procurement = get_procurement_value(int(row[3]))
                     procurement_procedure = get_procurement_procedure(int(row[4]))
                     classification = int(row[5])
-                    activity_title_of_procurement = row[6]
+                    activity_title_of_procurement = remove_quotes(row[6])
                     signed_date = get_date(row[7]) #TODO: Convert this to Date
                     contract_value = get_converted_price(row[8])
                     contract_price = get_converted_price(row[9])
                     aneks_contract_price = row[10]
-                    company = get_company_name(row[11])
+                    company = remove_quotes(row[11])
                     company_address = row[12]
                     tipi_operatorit = get_company_type(row[13])
                     afati_kohor = get_due_time(row[14])
@@ -82,7 +82,7 @@ def get_converted_price(num):
     return float(num.replace(',', ''))
 
 
-def get_company_name(name):
+def remove_quotes(name):
     if name[0] == '"':
         name = name[1:]
 
