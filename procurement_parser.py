@@ -1,5 +1,6 @@
 import csv
 import os
+from datetime import datetime
 
 from pymongo import MongoClient
 
@@ -26,17 +27,17 @@ def parse():
 
                     year = int(filename.replace('.csv', ''))
                     budget_type = get_buget_type(row[0])
-                    nr = row[1]
+                    nr = int(row[1])
                     type_of_procurement = get_procurement_type(int(row[2]))
                     value_of_procurement = get_procurement_value(int(row[3]))
                     procurement_procedure = get_procurement_procedure(int(row[4]))
                     classification = int(row[5])
                     activity_title_of_procurement = row[6]
-                    signed_date = row[7] #TODO: Convert this to Date
-                    contract_value = row[8]
-                    contract_price = row[9]
+                    signed_date = get_date(row[7]) #TODO: Convert this to Date
+                    contract_value = get_converted_price(row[8])
+                    contract_price = get_converted_price(row[9])
                     aneks_contract_price = row[10]
-                    company = row[11]
+                    company = get_company_name(row[11])
                     company_address = row[12]
                     tipi_operatorit = get_company_type(row[13])
                     afati_kohor = get_due_time(row[14])
@@ -49,7 +50,7 @@ def parse():
                         "tipi": type_of_procurement,
                         "vlera": value_of_procurement,
                         "procedura": procurement_procedure,
-                        "klasifikimi": classification,
+                        "klasifikimiFPP": classification,
                         "aktiviteti": activity_title_of_procurement,
                         "dataNenshkrimit": signed_date,
                         "kontrata": {
@@ -61,7 +62,6 @@ def parse():
                         },
                         "kompania": {
                             "emri": company,
-                            "slug": "",
                             "selia": company_address,
                             "tipiKompanise": tipi_operatorit
                         }
@@ -71,6 +71,25 @@ def parse():
                     print ''
 
                     collection.insert(report)
+
+
+def get_date(date_str):
+    date_str = date_str[0: 10]
+    return datetime.strptime(date_str, '%d.%M.%Y')
+
+
+def get_converted_price(num):
+    return float(num.replace(',', ''))
+
+
+def get_company_name(name):
+    if name[0] == '"':
+        name = name[1:]
+
+    if name[len(name)-1] == '"':
+        name = name[0: (len(name)-1)]
+
+    return name
 
 
 def get_buget_type(number):
