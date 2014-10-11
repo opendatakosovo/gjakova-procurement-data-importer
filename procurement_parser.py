@@ -188,6 +188,6 @@ def get_criteria_type(num):
         elif number == 2:
             return "Tenderi ekonomikisht me i favorshem"
     else:
-        return ""
+        return 1
 
 parse()
