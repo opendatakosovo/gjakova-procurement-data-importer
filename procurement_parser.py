@@ -1,6 +1,7 @@
 import csv
 import os
 from datetime import datetime
+from slugify import slugify
 
 from pymongo import MongoClient
 
@@ -62,6 +63,7 @@ def parse():
                         },
                         "kompania": {
                             "emri": company,
+                            "slug": slugify(company),
                             "selia": company_address,
                             "tipiKompanise": tipi_operatorit
                         }
@@ -83,13 +85,14 @@ def get_converted_price(num):
 
 
 def remove_quotes(name):
+    '''
     if name[0] == '"':
         name = name[1:]
 
     if name[len(name)-1] == '"':
         name = name[0: (len(name)-1)]
-
-    return name
+    '''
+    return name.replace('"', '')
 
 
 def get_buget_type(number):
