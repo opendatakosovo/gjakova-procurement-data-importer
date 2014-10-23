@@ -14,6 +14,141 @@ collection = db.procurements
 
 collection.remove({})
 
+coordinates = {
+    "prishtine": {
+        "lat": 42.6662068,
+        "lon": 21.1599254
+    },
+    "gjakove": {
+        "lat": 42.3911916,
+        "lon": 20.4279613
+    },
+    "bec-gjakove": {
+        "lat": 42.431298,
+        "lon": 20.2944091
+    },
+    "rahovec": {
+        "lat": 42.4023345,
+        "lon": 20.6381607
+    },
+    "meje-gjakove": {
+        "lat": 42.377663,
+        "lon": 20.4033923
+    },
+    "sllup-deqan": {
+        "lat": 42.51548,
+        "lon": 20.2603555
+    },
+    "bardhaniq-gjakove": {
+        "lat": 42.3911916, # Use gjakove coordinates for this.
+        "lon": 20.4279613 # Use gjakove coordinates for this.
+    },
+    "planqor-gjakove": {
+        "lat": 42.4468153,
+        "lon": 20.3647685
+    },
+    "planqor": {
+        "lat": 42.4468153,
+        "lon": 20.3647685
+    },
+    "marmull-gjakove": {
+        "lat": 42.3763196,
+        "lon": 20.5108845
+    },
+    "skivjan-gjakove": {
+        "lat": 42.4324481,
+        "lon": 20.37988
+    },
+    "duzhnje-gjakove": {
+        "lat": 42.3695309,
+        "lon": 20.351851
+    },
+    "dejne-rahovec": {
+        "lat": 42.4297752,
+        "lon": 20.5437363
+    },
+    "ujez-gjakove": {
+        "lat": 42.33815373,
+        "lon": 20.53537105
+    },
+    "novoselle-e-poshtme": {
+        "lat": 42.4457221,
+        "lon": 20.4066326
+    },
+    "lipovec-gjakove": {
+        "lat": 42.3150608,
+        "lon": 20.47715559
+    },
+    "suhareke": {
+        "lat": 42.3555214,
+        "lon": 20.8311939
+    },
+    "gurakoc-istog": {
+        "lat": 42.7146085,
+        "lon": 20.4252571
+    },
+    "sheremet-gjakove": {
+        "lat": 42.4329554,
+        "lon": 20.3287465
+    },
+    "dardani-gjakove": {
+        "lat": 42.3911916, # Use gjakove coordinates for this.
+        "lon": 20.4279613 # Use gjakove coordinates for this.
+    },
+    "peje": {
+        "lat": 42.6606262,
+        "lon": 20.2982288
+    },
+    "junik": {
+        "lat": 42.4750556,
+        "lon": 20.2757192
+    },
+    "ferizaj": {
+        "lat": 42.3719071,
+        "lon": 21.1511922
+    },
+    "baballoq-deqan": {
+        "lat": 42.4796642,
+        "lon": 20.3026054
+    },
+    "prizren": {
+        "lat": 42.2181194,
+        "lon": 20.7407284
+    },
+    "shiroke-suhareke": {
+        "lat": 42.3443668,
+        "lon": 20.8190273
+    },
+    "koretin-kamenice": {
+        "lat": 42.548572,
+        "lon": 21.5894437
+    },
+    "deqan": {
+        "lat": 42.5364468,
+        "lon": 20.2945804
+    },
+    "gjinoc-suhareke": {
+        "lat": 42.3165359,
+        "lon": 20.8158943
+    },
+    "viti": {
+        "lat": 42.3191762,
+        "lon": 21.3594618
+    },
+    "shupkovc-mitrovice": {
+        "lat": 42.8799218,
+        "lon": 20.888384
+    },
+    "cagllavice-prishtine": {
+        "lat": 42.6127529,
+        "lon": 21.1446475
+    },
+    "qagllavice-prishtine": {
+        "lat": 42.6127529,
+        "lon": 21.1446475
+    }
+}
+
 
 def parse():
 
@@ -39,7 +174,8 @@ def parse():
                     contract_price = get_converted_price(row[9])
                     aneks_contract_price = row[10]
                     company = remove_quotes(row[11])
-                    company_address = row[12]
+                    company_address = remove_quotes(row[12])
+                    company_address_slug = slugify(company_address)
                     tipi_operatorit = get_company_type(row[13])
                     afati_kohor = get_due_time(row[14])
                     kriteret_per_dhenje_te_kontrates = get_criteria_type(row[15])
@@ -64,10 +200,19 @@ def parse():
                         "kompania": {
                             "emri": company,
                             "slug": slugify(company),
-                            "selia": company_address,
-                            "tipiKompanise": tipi_operatorit
+                            "selia": {
+                                "emri": company_address,
+                                "slug": company_address_slug
+                            },
+                            "tipi": tipi_operatorit
                         }
                     }
+
+                    if company_address_slug != "":
+                        report["kompania"]["selia"]["kordinatat"] = {
+                            'gjeresi': coordinates[company_address_slug]['lat'],
+                            'gjatesi': coordinates[company_address_slug]['lon']
+                        }
 
                     print report
                     print ''
