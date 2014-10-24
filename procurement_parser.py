@@ -47,10 +47,6 @@ coordinates = {
         "lat": 42.4468153,
         "lon": 20.3647685
     },
-    "planqor": {
-        "lat": 42.4468153,
-        "lon": 20.3647685
-    },
     "marmull-gjakove": {
         "lat": 42.3763196,
         "lon": 20.5108845
@@ -139,10 +135,6 @@ coordinates = {
         "lat": 42.8799218,
         "lon": 20.888384
     },
-    "cagllavice-prishtine": {
-        "lat": 42.6127529,
-        "lon": 21.1446475
-    },
     "qagllavice-prishtine": {
         "lat": 42.6127529,
         "lon": 21.1446475
@@ -176,6 +168,10 @@ def parse():
                     company = remove_quotes(row[11])
                     company_address = remove_quotes(row[12])
                     company_address_slug = slugify(company_address)
+
+                    if company_address_slug == "planqor":
+                        company_address_slug = "planqor-gjakove"
+
                     tipi_operatorit = get_company_type(row[13])
                     afati_kohor = get_due_time(row[14])
                     kriteret_per_dhenje_te_kontrates = get_criteria_type(row[15])
