@@ -218,7 +218,7 @@ def parse():
 
 def get_date(date_str):
     date_str = date_str[0: 10]
-    return datetime.strptime(date_str, '%d.%M.%Y')
+    return datetime.strptime(date_str, '%d.%m.%Y')
 
 
 def get_converted_price(num):
