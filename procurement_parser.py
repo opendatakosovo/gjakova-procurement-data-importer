@@ -242,13 +242,13 @@ def get_buget_type(number):
         if num == 1:
             return "Te hyrat vetanake"
         elif num == 2:
-            return "Buxheti i Konsoliduar i Kosoves"
+            return "Buxheti i Kosoves"
         elif num == 3:
             return "Donacion"
         else:
-            return ""
+            return "I panjohur"
     else:
-        return ""
+        return "I panjohur"
 
 
 def get_procurement_type(number):
