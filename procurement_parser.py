@@ -2,6 +2,7 @@ import csv
 import os
 from datetime import datetime
 from slugify import slugify
+from unidecode import unidecode
 
 from pymongo import MongoClient
 
@@ -9,7 +10,7 @@ from pymongo import MongoClient
 client = MongoClient()
 
 # Get database and collection
-db = client.gjakova
+db = client.kosovoprocurements
 collection = db.procurements
 
 collection.remove({})
@@ -147,82 +148,119 @@ def parse():
     print "Importing procurements data."
 
     for filename in os.listdir('data/procurements'):
-        if(filename.endswith(".csv")):
+        city = filename
+        for filename in os.listdir('data/procurements/'+filename):
+            if(filename.endswith(".csv")):
+                with open('data/procurements/'+city+"/" + filename, 'rb') as csvfile:
+                    reader = csv.reader(csvfile, delimiter=',')
+                    line_number = 0
+                    for row in reader:
+                        year = int(filename.replace('.csv', ''))
+                        budget_type = get_buget_type(row[0])
+                        nr = get_nr(row[1])
+                        type_of_procurement = get_procurement_type(row[2])
+                        value_of_procurement = get_procurement_value(row[3])
+                        procurement_procedure = get_procurement_procedure(row[4])
+                        classification = int(get_classification(row[5]))
+                        activity_title_of_procurement = remove_quotes(row[6])
+                        signed_date = get_date(row[7]) #TODO: Convert this to Date
+                        contract_value = get_converted_price(row[8])
+                        contract_price = get_converted_price(row[9])
+                        aneks_contract_price = row[10]
+                        company = remove_quotes(row[11])
+                        company_address = remove_quotes(row[12])
+                        company_address_slug = slugify(company_address)
 
-            with open('data/procurements/' + filename, 'rb') as csvfile:
-                reader = csv.reader(csvfile, delimiter=',')
-                for row in reader:
+                        if company_address_slug == "planqor":
+                            company_address_slug = "planqor-gjakove"
 
-                    year = int(filename.replace('.csv', ''))
-                    budget_type = get_buget_type(row[0])
-                    nr = int(row[1])
-                    type_of_procurement = get_procurement_type(int(row[2]))
-                    value_of_procurement = get_procurement_value(int(row[3]))
-                    procurement_procedure = get_procurement_procedure(int(row[4]))
-                    classification = int(row[5])
-                    activity_title_of_procurement = remove_quotes(row[6])
-                    signed_date = get_date(row[7]) #TODO: Convert this to Date
-                    contract_value = get_converted_price(row[8])
-                    contract_price = get_converted_price(row[9])
-                    aneks_contract_price = row[10]
-                    company = remove_quotes(row[11])
-                    company_address = remove_quotes(row[12])
-                    company_address_slug = slugify(company_address)
+                        tipi_operatorit = get_company_type(row[13])
+                        afati_kohor = get_due_time(row[14])
+                        kriteret_per_dhenje_te_kontrates = get_criteria_type(row[15])
 
-                    if company_address_slug == "planqor":
-                        company_address_slug = "planqor-gjakove"
-
-                    tipi_operatorit = get_company_type(row[13])
-                    afati_kohor = get_due_time(row[14])
-                    kriteret_per_dhenje_te_kontrates = get_criteria_type(row[15])
-
-                    report = {
-                        "viti": year,
-                        "tipiBugjetit": budget_type,
-                        "numri": nr,
-                        "tipi": type_of_procurement,
-                        "vlera": value_of_procurement,
-                        "procedura": procurement_procedure,
-                        "klasifikimiFPP": classification,
-                        "aktiviteti": activity_title_of_procurement,
-                        "dataNenshkrimit": signed_date,
-                        "kontrata": {
-                            "vlera": contract_value,
-                            "qmimi": contract_price,
-                            "qmimiAneks": aneks_contract_price,
-                            "afatiKohor": afati_kohor,
-                            "kriteret": kriteret_per_dhenje_te_kontrates
-                        },
-                        "kompania": {
-                            "emri": company,
-                            "slug": slugify(company),
-                            "selia": {
-                                "emri": company_address,
-                                "slug": company_address_slug
+                        report = {
+                            "city":city,
+                            "viti": int(year),
+                            "tipiBugjetit": budget_type,
+                            "numri": nr,
+                            "tipi": type_of_procurement,
+                            "vlera": value_of_procurement,
+                            "procedura": procurement_procedure,
+                            "klasifikimiFPP": classification,
+                            "aktiviteti": activity_title_of_procurement,
+                            "dataNenshkrimit": signed_date,
+                            "kontrata": {
+                                "vlera": contract_value,
+                                "qmimi": contract_price,
+                                "qmimiAneks": aneks_contract_price,
+                                "afatiKohor": afati_kohor,
+                                "kriteret": kriteret_per_dhenje_te_kontrates
                             },
-                            "tipi": tipi_operatorit
+                            "kompania": {
+                                "emri": company,
+                                "slug": slugify(company),
+                                "selia": {
+                                    "emri": company_address,
+                                    "slug": company_address_slug
+                                },
+                                "tipi": tipi_operatorit
+                            }
                         }
-                    }
+                        '''
+                        if company_address_slug != "":
+                            report["kompania"]["selia"]["kordinatat"] = {
+                                'gjeresi': coordinates[company_address_slug]['lat'],
+                                'gjatesi': coordinates[company_address_slug]['lon']
+                            }
+                        '''
+                        print report
+                        print ''
+                        line_number=  line_number +1
+                        print line_number
+                        collection.insert(report)
 
-                    if company_address_slug != "":
-                        report["kompania"]["selia"]["kordinatat"] = {
-                            'gjeresi': coordinates[company_address_slug]['lat'],
-                            'gjatesi': coordinates[company_address_slug]['lon']
-                        }
+def get_nr(number):
+    if(number is None):
+        return ""
+    else:
 
-                    print report
-                    print ''
-
-                    collection.insert(report)
-
+        newNumber = [int(s) for s in number.split() if s.isdigit()]
+        if len(newNumber) >0:
+            return int(newNumber[0])
+        else:
+            return ""
+def get_classification(number):
+    if number != "":
+        return number
+    else:
+        return 0
 
 def get_date(date_str):
-    date_str = date_str[0: 10]
-    return datetime.strptime(date_str, '%d.%m.%Y')
+    if date_str.startswith('nd') or date_str.startswith('a') or date_str == "":
+        #date_str = date_str.decode('unicode_escape').encode('ascii', 'ignore')
+        #print date_str
+        return  ""
+    elif type(date_str) != datetime.date:
+        date_str = date_str.replace(',','.')
+        date_str = date_str[0: 10]
+        return datetime.strptime(date_str, '%d.%m.%Y')
 
 
 def get_converted_price(num):
-    return float(num.replace(',', ''))
+
+    if isinstance(num, str):
+        if num.startswith('A') or num.startswith('a') or 'p' in num or num == "":
+            return 0
+        elif ',' in num:
+            return float(num.replace(',', ''))
+        else:
+            print num
+            num = num.decode('unicode_escape').encode('ascii', 'ignore')
+            print num
+            return float(num)
+    else:
+        return float(num)
+
 
 
 def remove_quotes(name):
@@ -237,78 +275,109 @@ def remove_quotes(name):
 
 
 def get_buget_type(number):
-    if number != "":
-        num = int(number)
+    first =  number[:1]
+    second = number[2:3]
+    first_value = ""
+    second_value = ""
+    if first != "":
+        num = int(first)
         if num == 1:
-            return "Te hyrat vetanake"
+            first_value = "Te hyrat vetanake"
         elif num == 2:
-            return "Buxheti i Kosoves"
+            first_value = "Buxheti i Kosoves"
         elif num == 3:
-            return "Donacion"
+            first_value ="Donacion"
         else:
-            return "I panjohur"
+            first_value = "I panjohur"
     else:
-        return "I panjohur"
+        first_value = "I panjohur"
 
 
-def get_procurement_type(number):
-    if number == 1:
-        return "Furnizim"
-    elif number == 2:
-        return "Sherbime"
-    elif number == 3:
-        return "Sherbime Keshillimi"
-    elif number == 4:
-        return "Konkurs projektimi"
-    elif number == 5:
-        return "Pune"
-    elif number == 6:
-        return "Pune me koncesion"
-    elif number == 7:
-        return "Prone e palujtshme"
+    if second !="":
+        num = int(second)
+        if num == 1:
+            second_value = "Te hyrat vetanake"
+        elif num == 2:
+            second_value = "Buxheti i Kosoves"
+        elif num == 3:
+            second_value = "Donacion"
+        else:
+            second_value = "I panjohur"
     else:
-        return ""
+        second_value = "I panjohur"
+
+    return first_value + ", " + second_value
 
 
-def get_procurement_value(number):
-    if number == 1:
-        return "Vlere e madhe"
-    elif number == 2:
-        return "Vlere e mesme"
-    elif number == 3:
-        return "Vlere e vogel"
-    elif number == 4:
-        return "Vlere  minimale"
-    else:
-        return ""
+
+def get_procurement_type(num):
+    if num != "":
+        number = int(num)
+        if number == 1:
+            return "Furnizim"
+        elif number == 2:
+            return "Sherbime"
+        elif number == 3:
+            return "Sherbime Keshillimi"
+        elif number == 4:
+            return "Konkurs projektimi"
+        elif number == 5:
+            return "Pune"
+        elif number == 6:
+            return "Pune me koncesion"
+        elif number == 7:
+            return "Prone e palujtshme"
+        else:
+            return ""
 
 
-def get_procurement_procedure(number):
-    if number == 1:
-        return "Procedura e hapur"
-    elif number == 2:
-        return "Procedura e kufizuar"
-    elif number == 3:
-        return "Konkurs projektimi"
-    elif number == 4:
-        return "Procedura e negociuar pas publikimit te njoftimit te kontrates"
-    elif number == 5:
-        return "Procedura e negociuar pa publikimit te njoftimit te kontrates"
-    elif number == 6:
-        return "Procedura e kuotimit te Cmimeve"
-    elif number == 7:
-        return "Procedura e vleres minimale"
-    else:
-        return ""
+def get_procurement_value(num):
+    if num != "":
+        number = int(num)
+        if number == 1:
+            return "Vlere e madhe"
+        elif number == 2:
+            return "Vlere e mesme"
+        elif number == 3:
+            return "Vlere e vogel"
+        elif number == 4:
+            return "Vlere  minimale"
+        else:
+            return ""
+
+
+def get_procurement_procedure(num):
+     if num != "":
+        number = int(num)
+        if number == 1:
+            return "Procedura e hapur"
+        elif number == 2:
+            return "Procedura e kufizuar"
+        elif number == 3:
+            return "Konkurs projektimi"
+        elif number == 4:
+            return "Procedura e negociuar pas publikimit te njoftimit te kontrates"
+        elif number == 5:
+            return "Procedura e negociuar pa publikimit te njoftimit te kontrates"
+        elif number == 6:
+            return "Procedura e kuotimit te Cmimeve"
+        elif number == 7:
+            return "Procedura e vleres minimale"
+        else:
+            return ""
 
 
 def get_company_type(num):
     if num != "":
-        number = int(num)
-        if number == 1:
+        if num == "Ferizaj":
             return "OE Vendor"
-        elif number == 2:
-            return "OE Jo vendor"
+        elif num != "Ferizaj":
+            number = int(num)
+            if number == 1:
+                return "OE Vendor"
+            elif number == 2:
+                return "OE Jo vendor"
+
     else:
         return ""
 
