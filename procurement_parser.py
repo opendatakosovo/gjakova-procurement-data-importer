@@ -275,38 +275,20 @@ def remove_quotes(name):
 
 
 def get_buget_type(number):
-    first =  number[:1]
-    second = number[2:3]
-    first_value = ""
-    second_value = ""
-    if first != "":
-        num = int(first)
+    value =  number[:1]
+    text_value = ""
+    if value != "":
+        num = int(value)
         if num == 1:
-            first_value = "Te hyrat vetanake"
+            text_value = "Te hyrat vetanake"
         elif num == 2:
-            first_value = "Buxheti i Kosoves"
+            text_value = "Buxheti i Kosoves"
         elif num == 3:
-            first_value ="Donacion"
+            text_value ="Donacion"
         else:
-            first_value = "I panjohur"
-    else:
-        first_value = "I panjohur"
+            text_value = "I panjohur"
 
-
-    if second !="":
-        num = int(second)
-        if num == 1:
-            second_value = "Te hyrat vetanake"
-        elif num == 2:
-            second_value = "Buxheti i Kosoves"
-        elif num == 3:
-            second_value = "Donacion"
-        else:
-            second_value = "I panjohur"
-    else:
-        second_value = "I panjohur"
-
-    return first_value + ", " + second_value
+    return text_value
 
 
 
