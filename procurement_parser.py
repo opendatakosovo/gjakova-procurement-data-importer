@@ -179,7 +179,7 @@ def parse():
                         kriteret_per_dhenje_te_kontrates = get_criteria_type(row[15])
 
                         report = {
-                            "city":city,
+                            "city": city,
                             "viti": int(year),
                             "tipiBugjetit": budget_type,
                             "numri": nr,
@@ -213,10 +213,11 @@ def parse():
                                 'gjatesi': coordinates[company_address_slug]['lon']
                             }
                         '''
+                        line_number=  line_number +1
+                        print "Po procesohet rreshti " + str(line_number)
                         print report
                         print ''
-                        line_number=  line_number +1
-                        print line_number
+
                         collection.insert(report)
 
 def get_nr(number):
@@ -250,13 +251,11 @@ def get_converted_price(num):
 
     if isinstance(num, str):
         if num.startswith('A') or num.startswith('a') or 'p' in num or num == "":
-            return 0
+            return num
         elif ',' in num:
             return float(num.replace(',', ''))
         else:
-            print num
             num = num.decode('unicode_escape').encode('ascii', 'ignore')
-            print num
             return float(num)
     else:
         return float(num)
@@ -276,19 +275,15 @@ def remove_quotes(name):
 
 def get_buget_type(number):
     value =  number[:1]
-    text_value = ""
     if value != "":
         num = int(value)
         if num == 1:
-            text_value = "Te hyrat vetanake"
+            return "Te hyrat vetanake"
         elif num == 2:
-            text_value = "Buxheti i Kosoves"
+            return "Buxheti i Kosoves"
         elif num == 3:
-            text_value ="Donacion"
-        else:
-            text_value = "I panjohur"
+            return "Donacion"
 
-    return text_value
 
 
 
@@ -324,8 +319,6 @@ def get_procurement_value(num):
             return "Vlere e vogel"
         elif number == 4:
             return "Vlere  minimale"
-        else:
-            return ""
 
 
 def get_procurement_procedure(num):
@@ -345,8 +338,6 @@ def get_procurement_procedure(num):
             return "Procedura e kuotimit te Cmimeve"
         elif number == 7:
             return "Procedura e vleres minimale"
-        else:
-            return ""
 
 
 def get_company_type(num):
