@@ -251,7 +251,7 @@ def get_converted_price(num):
 
     if isinstance(num, str):
         if num.startswith('A') or num.startswith('a') or 'p' in num or num == "":
-            return num
+            return 0
         elif ',' in num:
             return float(num.replace(',', ''))
         else:
@@ -319,7 +319,6 @@ def get_procurement_value(num):
             return "Vlere e vogel"
         elif number == 4:
             return "Vlere  minimale"
-
 
 def get_procurement_procedure(num):
      if num != "":
