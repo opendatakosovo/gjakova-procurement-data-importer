@@ -1,6 +1,6 @@
 import csv
 import os
-from datetime import datetime
+from datetime import datetime,date
 from slugify import slugify
 from unidecode import unidecode
 
@@ -156,17 +156,17 @@ def parse():
                     line_number = 0
                     for row in reader:
                         year = int(filename.replace('.csv', ''))
-                        budget_type = get_buget_type(row[0])
-                        nr = get_nr(row[1])
-                        type_of_procurement = get_procurement_type(row[2])
-                        value_of_procurement = get_procurement_value(row[3])
-                        procurement_procedure = get_procurement_procedure(row[4])
-                        classification = int(get_classification(row[5]))
+                        budget_type = convert_buget_type(row[0])
+                        nr = convert_nr(row[1])
+                        type_of_procurement = convert_procurement_type(row[2])
+                        value_of_procurement = convert_procurement_value(row[3])
+                        procurement_procedure = convert_procurement_procedure(row[4])
+                        classification = int(convert_classification(row[5]))
                         activity_title_of_procurement = remove_quotes(row[6])
-                        signed_date = get_date(row[7]) #TODO: Convert this to Date
-                        contract_value = get_converted_price(row[8])
-                        contract_price = get_converted_price(row[9])
-                        aneks_contract_price = row[10]
+                        signed_date = convert_date(row[7], year, city) #TODO: Convert this to Date
+                        contract_value = convert_price(row[8])
+                        contract_price = convert_price(row[9])
+                        aneks_contract_price = convert_price(row[10])
                         company = remove_quotes(row[11])
                         company_address = remove_quotes(row[12])
                         company_address_slug = slugify(company_address)
@@ -174,9 +174,9 @@ def parse():
                         if company_address_slug == "planqor":
                             company_address_slug = "planqor-gjakove"
 
-                        tipi_operatorit = get_company_type(row[13])
-                        afati_kohor = get_due_time(row[14])
-                        kriteret_per_dhenje_te_kontrates = get_criteria_type(row[15])
+                        tipi_operatorit = convert_company_type(row[13])
+                        afati_kohor = convert_due_time(row[14])
+                        kriteret_per_dhenje_te_kontrates = convert_criteria_type(row[15])
 
                         report = {
                             "city": city,
@@ -214,13 +214,13 @@ def parse():
                             }
                         '''
                         line_number=  line_number +1
-                        print "Po procesohet rreshti " + str(line_number)
-                        print report
-                        print ''
+                        #print "Po procesohet rreshti " + str(line_number) + " viti " + str(year)
+                        #print report
+                        #print ''
 
                         collection.insert(report)
 
-def get_nr(number):
+def convert_nr(number):
     if(number is None):
         return ""
     else:
@@ -230,25 +230,25 @@ def get_nr(number):
             return int(newNumber[0])
         else:
             return ""
-def get_classification(number):
+def convert_classification(number):
     if number != "":
         return number
     else:
         return 0
 
-def get_date(date_str):
+def convert_date(date_str, year, qyteti):
     if date_str.startswith('nd') or date_str.startswith('a') or date_str == "":
-        #date_str = date_str.decode('unicode_escape').encode('ascii', 'ignore')
-        #print date_str
-        return  ""
+        today = date.today()
+        today = today.strftime(str(str(year)+"/1/1"))
+        print str(today) + " " + qyteti
+        return today
     elif type(date_str) != datetime.date:
-        date_str = date_str.replace(',','.')
-        date_str = date_str[0: 10]
-        return datetime.strptime(date_str, '%d.%m.%Y')
+            date_str = date_str.replace(',','.')
+            date_str = date_str[0: 10]
+            return datetime.strptime(date_str, '%d.%m.%Y')
 
 
-def get_converted_price(num):
-
+def convert_price(num):
     if isinstance(num, str):
         if num.startswith('A') or num.startswith('a') or 'p' in num or num == "":
             return 0
@@ -273,7 +273,19 @@ def remove_quotes(name):
     return name.replace('"', '')
 
 
-def get_buget_type(number):
+def convert_buget_type(number):
+    if number.find(',')!=-1:
+        budget_array = []
+        if number[:1] == 1:
+            budget_array.append("Te hyrat vetanake")
+        if number[2:3] == 2:
+            budget_array.append("Buxheti i Kosoves")
+            return budget_array
+        else:
+            return budget_array
+        if number[4:5] == 3:
+            budget_array.append("Donacion")
+            return budget_array
     value =  number[:1]
     if value != "":
         num = int(value)
@@ -283,11 +295,13 @@ def get_buget_type(number):
             return "Buxheti i Kosoves"
         elif num == 3:
             return "Donacion"
+    else:
+        return "n/a"
 
 
 
 
-def get_procurement_type(num):
+def convert_procurement_type(num):
     if num != "":
         number = int(num)
         if number == 1:
@@ -304,11 +318,11 @@ def get_procurement_type(num):
             return "Pune me koncesion"
         elif number == 7:
             return "Prone e palujtshme"
-        else:
-            return ""
+    else:
+        return "n/a"
 
 
-def get_procurement_value(num):
+def convert_procurement_value(num):
     if num != "":
         number = int(num)
         if number == 1:
@@ -319,9 +333,11 @@ def get_procurement_value(num):
             return "Vlere e vogel"
         elif number == 4:
             return "Vlere  minimale"
+    else:
+        return "n/a"
 
-def get_procurement_procedure(num):
-     if num != "":
+def convert_procurement_procedure(num):
+    if num != "":
         number = int(num)
         if number == 1:
             return "Procedura e hapur"
@@ -337,9 +353,11 @@ def get_procurement_procedure(num):
             return "Procedura e kuotimit te Cmimeve"
         elif number == 7:
             return "Procedura e vleres minimale"
+    else:
+        return "n/a"
 
 
-def get_company_type(num):
+def convert_company_type(num):
     if num != "":
         if num == "Ferizaj":
             return "OE Vendor"
@@ -349,12 +367,11 @@ def get_company_type(num):
                 return "OE Vendor"
             elif number == 2:
                 return "OE Jo vendor"
-
     else:
-        return ""
+        return "n/a"
 
 
-def get_due_time(num):
+def convert_due_time(num):
     if num != "":
         number = int(num)
         if number == 1:
@@ -362,10 +379,10 @@ def get_due_time(num):
         elif number == 2:
             return "Afati kohor i shkurtuar"
     else:
-        return ""
+        return "n/a"
 
 
-def get_criteria_type(num):
+def convert_criteria_type(num):
     if num != "":
         number = int(num)
         if number == 1:
@@ -373,6 +390,6 @@ def get_criteria_type(num):
         elif number == 2:
             return "Tenderi ekonomikisht me i favorshem"
     else:
-        return 1
+        return "n/a"
 
 parse()
