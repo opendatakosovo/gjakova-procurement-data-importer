@@ -239,14 +239,21 @@ def convert_classification(number):
 def convert_date(date_str, year, qyteti):
     if date_str.startswith('nd') or date_str.startswith('a') or date_str == "":
         today = date.today()
-        today = today.strftime(str(str(year)+"/1/1"))
-        print str(today) + " " + qyteti
-        return today
-    elif type(date_str) != datetime.date:
-            date_str = date_str.replace(',','.')
-            date_str = date_str[0: 10]
-            return datetime.strptime(date_str, '%d.%m.%Y')
-
+        today = today.strftime(str("1.1."+str(year)))
+        return datetime.strptime(today, '%d.%m.%Y')
+    elif date_str.find(",") != -1:
+        print date_str
+        date_str = date_str.replace(',','.')
+        date_str = date_str[0: 10]
+        return datetime.strptime(date_str, '%d.%m.%Y')
+    elif date_str.find('/') != -1:
+        print date_str
+        date_str = date_str.replace('/','.')
+        date_str = date_str[0: 10]
+        return datetime.strptime(date_str, '%d.%m.%Y')
+    else:
+        date_str = date_str[0: 10]
+        return datetime.strptime(date_str, '%d.%m.%Y')
 
 def convert_price(num):
     if isinstance(num, str):
