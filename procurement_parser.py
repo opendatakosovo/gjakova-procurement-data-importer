@@ -214,9 +214,9 @@ def parse():
                             }
                         '''
                         line_number=  line_number +1
-                        #print "Po procesohet rreshti " + str(line_number) + " viti " + str(year)
-                        #print report
-                        #print ''
+                        print str(city) + ": " + "Po procesohet rreshti " + str(line_number) + " viti " + str(year)
+                        print report
+                        print ''
 
                         collection.insert(report)
 
@@ -242,12 +242,10 @@ def convert_date(date_str, year, qyteti):
         today = today.strftime(str("1.1."+str(year)))
         return datetime.strptime(today, '%d.%m.%Y')
     elif date_str.find(",") != -1:
-        print date_str
         date_str = date_str.replace(',','.')
         date_str = date_str[0: 10]
         return datetime.strptime(date_str, '%d.%m.%Y')
     elif date_str.find('/') != -1:
-        print date_str
         date_str = date_str.replace('/','.')
         date_str = date_str[0: 10]
         return datetime.strptime(date_str, '%d.%m.%Y')
@@ -281,16 +279,14 @@ def remove_quotes(name):
 
 
 def convert_buget_type(number):
-    if number.find(',')!=-1:
+    if number.find(',') != -1:
         budget_array = []
-        if number[:1] == 1:
+        if number[:1] == '1':
             budget_array.append("Te hyrat vetanake")
-        if number[2:3] == 2:
+        if number[2:3] == '2':
             budget_array.append("Buxheti i Kosoves")
             return budget_array
-        else:
-            return budget_array
-        if number[4:5] == 3:
+        if number[4:5] == '3':
             budget_array.append("Donacion")
             return budget_array
     value =  number[:1]
