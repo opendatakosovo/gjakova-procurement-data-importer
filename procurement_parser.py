@@ -1,9 +1,7 @@
 import csv
 import os
-from datetime import datetime,date
+from datetime import datetime, date
 from slugify import slugify
-from unidecode import unidecode
-
 from pymongo import MongoClient
 
 # Connect to default local instance of mongo
@@ -89,8 +87,8 @@ coordinates = {
         "lon": 20.3287465
     },
     "dardani-gjakove": {
-        "lat": 42.3911916, # Use gjakove coordinates for this.
-        "lon": 20.4279613 # Use gjakove coordinates for this.
+        "lat": 42.3911916,  # Use gjakove coordinates for this.
+        "lon": 20.4279613  # Use gjakove coordinates for this.
     },
     "peje": {
         "lat": 42.6606262,
@@ -213,12 +211,13 @@ def parse():
                                 'gjatesi': coordinates[company_address_slug]['lon']
                             }
                         '''
-                        line_number=  line_number +1
+                        line_number = line_number + 1
                         print str(city) + ": " + "Po procesohet rreshti " + str(line_number) + " viti " + str(year)
                         print report
                         print ''
 
                         collection.insert(report)
+
 
 def convert_nr(number):
     if(number is None):
@@ -226,10 +225,12 @@ def convert_nr(number):
     else:
 
         newNumber = [int(s) for s in number.split() if s.isdigit()]
-        if len(newNumber) >0:
+        if len(newNumber) > 0:
             return int(newNumber[0])
         else:
             return ""
+
+
 def convert_classification(number):
     if number != "":
         return number
@@ -242,16 +243,17 @@ def convert_date(date_str, year, qyteti):
         today = today.strftime(str("1.1."+str(year)))
         return datetime.strptime(today, '%d.%m.%Y')
     elif date_str.find(",") != -1:
-        date_str = date_str.replace(',','.')
+        date_str = date_str.replace(',', '.')
         date_str = date_str[0: 10]
         return datetime.strptime(date_str, '%d.%m.%Y')
     elif date_str.find('/') != -1:
-        date_str = date_str.replace('/','.')
+        date_str = date_str.replace('/', '.')
         date_str = date_str[0: 10]
         return datetime.strptime(date_str, '%d.%m.%Y')
     else:
         date_str = date_str[0: 10]
         return datetime.strptime(date_str, '%d.%m.%Y')
+
 
 def convert_price(num):
     if isinstance(num, str):
@@ -264,7 +266,6 @@ def convert_price(num):
             return float(num)
     else:
         return float(num)
-
 
 
 def remove_quotes(name):
@@ -289,7 +290,8 @@ def convert_buget_type(number):
         if number[4:5] == '3':
             budget_array.append("Donacion")
             return budget_array
-    value =  number[:1]
+
+    value = number[:1]
     if value != "":
         num = int(value)
         if num == 1:
@@ -300,8 +302,6 @@ def convert_buget_type(number):
             return "Donacion"
     else:
         return "n/a"
-
-
 
 
 def convert_procurement_type(num):
@@ -338,6 +338,7 @@ def convert_procurement_value(num):
             return "Vlere  minimale"
     else:
         return "n/a"
+
 
 def convert_procurement_procedure(num):
     if num != "":
