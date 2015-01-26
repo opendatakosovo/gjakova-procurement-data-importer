@@ -137,6 +137,74 @@ coordinates = {
     "qagllavice-prishtine": {
         "lat": 42.6127529,
         "lon": 21.1446475
+    },
+    "podujeve": {
+        "lat": 42.911417,
+        "lon": 21.193330
+    },
+    "gjilan": {
+        "lat": 42.460879,
+        "lon": 21.466578
+    },
+    "kacanik": {
+        "lat": 42.228059,
+        "lon": 21.256383
+    },
+    "lipjan": {
+        "lat": 42.524467,
+        "lon": 21.126375
+    },
+    "kllokot": {
+        "lat": 42.369029,
+        "lon": 21.370978
+    },
+    "shtime": {
+        "lat": 42.438549,
+        "lon": 21.037209
+    },
+    "kamenice": {
+        "lat": 42.587380,
+        "lon": 21.573784
+    },
+    "vushtrri": {
+        "lat": 42.826968,
+        "lon": 20.970568
+    },
+    "pozheran-viti": {
+        "lat": 42.364772,
+        "lon": 21.337110
+    },
+    "mitrovice": {
+        "lat": 42.891215,
+        "lon": 20.865629
+    },
+    "gernqar": {
+        "lat": 42.327132,
+        "lon": 21.415428
+    },
+    "drenas": {
+        "lat": 42.629178,
+        "lon": 20.886161
+    },
+    "fushe-kosove": {
+        "lat": 42.637566,
+        "lon": 21.093615
+    },
+    "hani-i-elezit": {
+        "lat": 42.150476,
+        "lon": 21.297002
+    },
+    "shterpce": {
+        "lat": 42.240943,
+        "lon": 21.026023
+    },
+    "tirane": {
+        "lat": 41.327824,
+        "lon": 19.818767
+    },
+    "gjermani": {
+        "lat": 51.046960,
+        "lon": 10.596942
     }
 }
 
@@ -172,6 +240,31 @@ def parse():
                         if company_address_slug == "planqor":
                             company_address_slug = "planqor-gjakove"
 
+                        if company_address_slug == "pozheran":
+                            company_address_slug = "pozheran-viti"
+
+                        if company_address_slug == "gllogoc":
+                            company_address_slug = "drenas"
+
+                        if company_address_slug == "fushekosove-prishtine":
+                            company_address_slug = "fushe-kosove"
+
+                        if company_address_slug == "prishtie":
+                            company_address_slug = "prishtine"
+
+                        if company_address_slug == "gjilan-viti-viti-viti-viti":
+                            company_address_slug = "viti"
+
+                        if company_address_slug == "suharek":
+                            company_address_slug = "suhareke"
+
+                        if company_address_slug == "kaqanik":
+                            company_address_slug = "kacanik"
+
+                        if company_address_slug == "kllokot-kamenice":
+                            company_address_slug = "kamenice"
+
+
                         tipi_operatorit = convert_company_type(row[13])
                         afati_kohor = convert_due_time(row[14])
                         kriteret_per_dhenje_te_kontrates = convert_criteria_type(row[15])
@@ -204,18 +297,16 @@ def parse():
                                 "tipi": tipi_operatorit
                             }
                         }
-                        '''
+
                         if company_address_slug != "":
                             report["kompania"]["selia"]["kordinatat"] = {
                                 'gjeresi': coordinates[company_address_slug]['lat'],
                                 'gjatesi': coordinates[company_address_slug]['lon']
                             }
-                        '''
                         line_number = line_number + 1
                         print str(city) + ": " + "Po procesohet rreshti " + str(line_number) + " viti " + str(year)
                         print report
                         print ''
-
                         collection.insert(report)
 
 
