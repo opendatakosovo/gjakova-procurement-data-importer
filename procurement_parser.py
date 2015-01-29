@@ -205,6 +205,46 @@ coordinates = {
     "gjermani": {
         "lat": 51.046960,
         "lon": 10.596942
+    },
+    "istog": {
+        "lat": 42.782031,
+        "lon": 20.491154
+    },
+    "obiliq": {
+        "lat": 42.685030,
+        "lon": 21.072181
+    },
+    "malisheve": {
+        "lat": 42.484626,
+        "lon": 20.741184
+    },
+    "carraleve": {
+        "lat": 42.456770,
+        "lon": 20.974654
+    },
+    "kline": {
+        "lat": 42.618770,
+        "lon": 20.576298
+    },
+    "komoran": {
+        "lat": 42.577489,
+        "lon": 20.901006
+    },
+    "skenderaj": {
+        "lat": 42.747506,
+        "lon": 20.789242
+    },
+    "llapnaselle": {
+        "lat": 42.595627,
+        "lon": 21.142951
+    },
+    "slloveni": {
+        "lat": 46.055851,
+        "lon": 14.510852
+    },
+    "slloveni": {
+        "lat": 46.055851,
+        "lon": 14.510852
     }
 }
 
@@ -229,7 +269,8 @@ def parse():
                         procurement_procedure = convert_procurement_procedure(row[4])
                         classification = int(convert_classification(row[5]))
                         activity_title_of_procurement = remove_quotes(row[6])
-                        signed_date = convert_date(row[7], year, city) #TODO: Convert this to Date
+                        signed_date = convert_date(row[7], year, city)
+                        #TODO: Convert this to Date
                         contract_value = convert_price(row[8])
                         contract_price = convert_price(row[9])
                         aneks_contract_price = convert_price(row[10])
@@ -255,6 +296,8 @@ def parse():
                         if company_address_slug == "podueve":
                             company_address_slug = "podujeve"
 
+                        if company_address_slug == "mitrovic":
+                            company_address_slug = "mitrovice"
 
                         if company_address_slug == "f-kosove":
                             company_address_slug = "fushe-kosove"
@@ -262,7 +305,37 @@ def parse():
                         if company_address_slug == "prishtie":
                             company_address_slug = "prishtine"
 
+                        if company_address_slug == "prishrine":
+                            company_address_slug = "prishtine"
+
+                        if company_address_slug == "prishtina":
+                            company_address_slug = "prishtine"
+
+                        if company_address_slug == "prshtine":
+                            company_address_slug = "prishtine"
+
+                        if company_address_slug == "prsihtine":
+                            company_address_slug = "prishtine"
+
+                        if company_address_slug == "tira-prish":
+                            company_address_slug = "prishtine"
+
+                        if company_address_slug == "pri-zagreb":
+                            company_address_slug = "prishtine"
+
+                        if company_address_slug == "syhareke":
+                            company_address_slug = "suhareke"
+
+                        if company_address_slug == "fushe-kos":
+                            company_address_slug = "fushe-kosove"
+
+                        if company_address_slug == "fushe-ko":
+                            company_address_slug = "fushe-kosove"
+
                         if company_address_slug == "gjilan-viti-viti-viti-viti":
+                            company_address_slug = "viti"
+
+                        if company_address_slug == "v-i-t-i":
                             company_address_slug = "viti"
 
                         if company_address_slug == "suharek":
@@ -307,6 +380,9 @@ def parse():
                                 "tipi": tipi_operatorit
                             }
                         }
+                        '''
+                        if company_address_slug not in coordinates:
+                            print company_address_slug
 
                         '''
                         if company_address_slug != "":
@@ -314,13 +390,11 @@ def parse():
                                 'gjeresi': coordinates[company_address_slug]['lat'],
                                 'gjatesi': coordinates[company_address_slug]['lon']
                             }
-                        '''
                         line_number = line_number + 1
                         print str(city) + ": " + "Po procesohet rreshti " + str(line_number) + " viti " + str(year)
                         print report
                         print ''
                         collection.insert(report)
-
 
 def convert_nr(number):
     if(number is None):
@@ -356,7 +430,6 @@ def convert_date(date_str, year, qyteti):
     else:
         date_str = date_str[0: 10]
 
-        print str(year) + qyteti
         if len(date_str[6:]) ==2:
             day = date_str[0:2]
             month =  date_str[3:5]
