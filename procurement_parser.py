@@ -243,10 +243,20 @@ def parse():
                         if company_address_slug == "pozheran":
                             company_address_slug = "pozheran-viti"
 
+                        if company_address_slug == "pozhoran":
+                            company_address_slug = "pozheran-viti"
+
                         if company_address_slug == "gllogoc":
                             company_address_slug = "drenas"
 
                         if company_address_slug == "fushekosove-prishtine":
+                            company_address_slug = "fushe-kosove"
+
+                        if company_address_slug == "podueve":
+                            company_address_slug = "podujeve"
+
+
+                        if company_address_slug == "f-kosove":
                             company_address_slug = "fushe-kosove"
 
                         if company_address_slug == "prishtie":
@@ -298,11 +308,13 @@ def parse():
                             }
                         }
 
+                        '''
                         if company_address_slug != "":
                             report["kompania"]["selia"]["kordinatat"] = {
                                 'gjeresi': coordinates[company_address_slug]['lat'],
                                 'gjatesi': coordinates[company_address_slug]['lon']
                             }
+                        '''
                         line_number = line_number + 1
                         print str(city) + ": " + "Po procesohet rreshti " + str(line_number) + " viti " + str(year)
                         print report
@@ -343,6 +355,17 @@ def convert_date(date_str, year, qyteti):
         return datetime.strptime(date_str, '%d.%m.%Y')
     else:
         date_str = date_str[0: 10]
+
+        print str(year) + qyteti
+        if len(date_str[6:]) ==2:
+            day = date_str[0:2]
+            month =  date_str[3:5]
+            datet = ""
+        
+            datet = date_str[6:]
+            datet = str(20)+datet            
+            final_date = str(day) +"."+str(month)+"." + datet
+            return datetime.strptime(final_date, '%d.%m.%Y')
         return datetime.strptime(date_str, '%d.%m.%Y')
 
 
