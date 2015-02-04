@@ -305,6 +305,9 @@ def parse():
                         if company_address_slug == "prishtie":
                             company_address_slug = "prishtine"
 
+                        if company_address_slug == "prishtin":
+                            company_address_slug = "prishtine"
+
                         if company_address_slug == "prishrine":
                             company_address_slug = "prishtine"
 
@@ -385,11 +388,13 @@ def parse():
                             print company_address_slug
 
                         '''
+                        '''
                         if company_address_slug != "":
                             report["kompania"]["selia"]["kordinatat"] = {
                                 'gjeresi': coordinates[company_address_slug]['lat'],
                                 'gjatesi': coordinates[company_address_slug]['lon']
                             }
+                        '''
                         line_number = line_number + 1
                         print str(city) + ": " + "Po procesohet rreshti " + str(line_number) + " viti " + str(year)
                         print report
