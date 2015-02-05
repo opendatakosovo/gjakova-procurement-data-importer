@@ -193,15 +193,15 @@ def convert_procurement_type(num):
         if number == 1:
             return "Furnizim"
         elif number == 2:
-            return "Sherbime"
+            return "Shërbime"
         elif number == 3:
-            return "Sherbime Keshillimi"
+            return "Shërbime keshillimi"
         elif number == 4:
             return "Konkurs projektimi"
         elif number == 5:
-            return "Pune"
+            return "Punë"
         elif number == 6:
-            return "Pune me koncesion"
+            return "Punë me koncesion"
         elif number == 7:
             return "Prone e palujtshme"
     else:
@@ -233,13 +233,13 @@ def convert_procurement_procedure(num):
         elif number == 3:
             return "Konkurs projektimi"
         elif number == 4:
-            return "Procedura e negociuar pas publikimit te njoftimit te kontrates"
+            return "Procedura e negociuar pas publikimit të njoftimit të kontratës"
         elif number == 5:
-            return "Procedura e negociuar pa publikimit te njoftimit te kontrates"
+            return "Procedura e negociuar pa publikimit të njoftimit të kontratës"
         elif number == 6:
-            return "Procedura e kuotimit te Cmimeve"
+            return "Procedura e kuotimit të Çmimeve"
         elif number == 7:
-            return "Procedura e vleres minimale"
+            return "Procedura e vlerës minimale"
     else:
         return "n/a"
 
@@ -273,7 +273,7 @@ def convert_criteria_type(num):
     if num != "":
         number = int(num)
         if number == 1:
-            return "Cmimi me i ulet"
+            return "Çmimi me i ulet"
         elif number == 2:
             return "Tenderi ekonomikisht me i favorshem"
     else:
