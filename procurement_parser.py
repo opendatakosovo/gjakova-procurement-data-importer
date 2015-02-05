@@ -166,23 +166,23 @@ def convert_buget_type(number):
     if number.find(',') != -1:
         budget_array = []
         if number[:1] == '1':
-            budget_array.append("Të hyrat vetanake")
+            budget_array.append("Të hyra vetanake")
         if number[2:3] == '2':
             budget_array.append("Buxheti i Kosovës")
             return budget_array
         if number[4:5] == '3':
-            budget_array.append("Donacion")
+            budget_array.append("Donacione")
             return budget_array
 
     value = number[:1]
     if value != "":
         num = int(value)
         if num == 1:
-            return "Të hyrat vetanake"
+            return "Të hyra vetanake"
         elif num == 2:
             return "Buxheti i Kosovës"
         elif num == 3:
-            return "Donacion"
+            return "Donacione"
     else:
         return "n/a"
 
