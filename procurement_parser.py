@@ -212,13 +212,13 @@ def convert_procurement_value(num):
     if num != "":
         number = int(num)
         if number == 1:
-            return "Vlere e madhe"
+            return "Vlerë e madhe"
         elif number == 2:
-            return "Vlere e mesme"
+            return "Vlerë e mesme"
         elif number == 3:
-            return "Vlere e vogel"
+            return "Vlerë e vogël"
         elif number == 4:
-            return "Vlere minimale"
+            return "Vlerë minimale"
     else:
         return "n/a"
 
@@ -273,9 +273,9 @@ def convert_criteria_type(num):
     if num != "":
         number = int(num)
         if number == 1:
-            return "Çmimi me i ulet"
+            return "Çmimi më i ulët"
         elif number == 2:
-            return "Tenderi ekonomikisht me i favorshem"
+            return "Tenderi ekonomikisht më i favorshëm"
     else:
         return "n/a"
 
