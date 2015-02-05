@@ -3,6 +3,7 @@ import os
 from datetime import datetime, date
 from slugify import slugify
 from pymongo import MongoClient
+from utils import Utils
 
 # Connect to default local instance of mongo
 client = MongoClient()
@@ -10,244 +11,8 @@ client = MongoClient()
 # Get database and collection
 db = client.kosovoprocurements
 collection = db.procurements
-
+utils = Utils()
 collection.remove({})
-
-coordinates = {
-    "prishtine": {
-        "lat": 42.6662068,
-        "lon": 21.1599254
-    },
-    "gjakove": {
-        "lat": 42.3911916,
-        "lon": 20.4279613
-    },
-    "bec-gjakove": {
-        "lat": 42.431298,
-        "lon": 20.2944091
-    },
-    "rahovec": {
-        "lat": 42.4023345,
-        "lon": 20.6381607
-    },
-    "meje-gjakove": {
-        "lat": 42.377663,
-        "lon": 20.4033923
-    },
-    "sllup-deqan": {
-        "lat": 42.51548,
-        "lon": 20.2603555
-    },
-    "bardhaniq-gjakove": {
-        "lat": 42.3911916, # Use gjakove coordinates for this.
-        "lon": 20.4279613 # Use gjakove coordinates for this.
-    },
-    "planqor-gjakove": {
-        "lat": 42.4468153,
-        "lon": 20.3647685
-    },
-    "marmull-gjakove": {
-        "lat": 42.3763196,
-        "lon": 20.5108845
-    },
-    "skivjan-gjakove": {
-        "lat": 42.4324481,
-        "lon": 20.37988
-    },
-    "duzhnje-gjakove": {
-        "lat": 42.3695309,
-        "lon": 20.351851
-    },
-    "dejne-rahovec": {
-        "lat": 42.4297752,
-        "lon": 20.5437363
-    },
-    "ujez-gjakove": {
-        "lat": 42.33815373,
-        "lon": 20.53537105
-    },
-    "novoselle-e-poshtme": {
-        "lat": 42.4457221,
-        "lon": 20.4066326
-    },
-    "lipovec-gjakove": {
-        "lat": 42.3150608,
-        "lon": 20.47715559
-    },
-    "suhareke": {
-        "lat": 42.3555214,
-        "lon": 20.8311939
-    },
-    "gurakoc-istog": {
-        "lat": 42.7146085,
-        "lon": 20.4252571
-    },
-    "sheremet-gjakove": {
-        "lat": 42.4329554,
-        "lon": 20.3287465
-    },
-    "dardani-gjakove": {
-        "lat": 42.3911916,  # Use gjakove coordinates for this.
-        "lon": 20.4279613  # Use gjakove coordinates for this.
-    },
-    "peje": {
-        "lat": 42.6606262,
-        "lon": 20.2982288
-    },
-    "junik": {
-        "lat": 42.4750556,
-        "lon": 20.2757192
-    },
-    "ferizaj": {
-        "lat": 42.3719071,
-        "lon": 21.1511922
-    },
-    "baballoq-deqan": {
-        "lat": 42.4796642,
-        "lon": 20.3026054
-    },
-    "prizren": {
-        "lat": 42.2181194,
-        "lon": 20.7407284
-    },
-    "shiroke-suhareke": {
-        "lat": 42.3443668,
-        "lon": 20.8190273
-    },
-    "koretin-kamenice": {
-        "lat": 42.548572,
-        "lon": 21.5894437
-    },
-    "deqan": {
-        "lat": 42.5364468,
-        "lon": 20.2945804
-    },
-    "gjinoc-suhareke": {
-        "lat": 42.3165359,
-        "lon": 20.8158943
-    },
-    "viti": {
-        "lat": 42.3191762,
-        "lon": 21.3594618
-    },
-    "shupkovc-mitrovice": {
-        "lat": 42.8799218,
-        "lon": 20.888384
-    },
-    "qagllavice-prishtine": {
-        "lat": 42.6127529,
-        "lon": 21.1446475
-    },
-    "podujeve": {
-        "lat": 42.911417,
-        "lon": 21.193330
-    },
-    "gjilan": {
-        "lat": 42.460879,
-        "lon": 21.466578
-    },
-    "kacanik": {
-        "lat": 42.228059,
-        "lon": 21.256383
-    },
-    "lipjan": {
-        "lat": 42.524467,
-        "lon": 21.126375
-    },
-    "kllokot": {
-        "lat": 42.369029,
-        "lon": 21.370978
-    },
-    "shtime": {
-        "lat": 42.438549,
-        "lon": 21.037209
-    },
-    "kamenice": {
-        "lat": 42.587380,
-        "lon": 21.573784
-    },
-    "vushtrri": {
-        "lat": 42.826968,
-        "lon": 20.970568
-    },
-    "pozheran-viti": {
-        "lat": 42.364772,
-        "lon": 21.337110
-    },
-    "mitrovice": {
-        "lat": 42.891215,
-        "lon": 20.865629
-    },
-    "gernqar": {
-        "lat": 42.327132,
-        "lon": 21.415428
-    },
-    "drenas": {
-        "lat": 42.629178,
-        "lon": 20.886161
-    },
-    "fushe-kosove": {
-        "lat": 42.637566,
-        "lon": 21.093615
-    },
-    "hani-i-elezit": {
-        "lat": 42.150476,
-        "lon": 21.297002
-    },
-    "shterpce": {
-        "lat": 42.240943,
-        "lon": 21.026023
-    },
-    "tirane": {
-        "lat": 41.327824,
-        "lon": 19.818767
-    },
-    "gjermani": {
-        "lat": 51.046960,
-        "lon": 10.596942
-    },
-    "istog": {
-        "lat": 42.782031,
-        "lon": 20.491154
-    },
-    "obiliq": {
-        "lat": 42.685030,
-        "lon": 21.072181
-    },
-    "malisheve": {
-        "lat": 42.484626,
-        "lon": 20.741184
-    },
-    "carraleve": {
-        "lat": 42.456770,
-        "lon": 20.974654
-    },
-    "kline": {
-        "lat": 42.618770,
-        "lon": 20.576298
-    },
-    "komoran": {
-        "lat": 42.577489,
-        "lon": 20.901006
-    },
-    "skenderaj": {
-        "lat": 42.747506,
-        "lon": 20.789242
-    },
-    "llapnaselle": {
-        "lat": 42.595627,
-        "lon": 21.142951
-    },
-    "slloveni": {
-        "lat": 46.055851,
-        "lon": 14.510852
-    },
-    "slloveni": {
-        "lat": 46.055851,
-        "lon": 14.510852
-    }
-}
-
 
 def parse():
 
@@ -275,81 +40,12 @@ def parse():
                         contract_price = convert_price(row[9])
                         aneks_contract_price = convert_price(row[10])
                         company = remove_quotes(row[11])
+
                         company_address = remove_quotes(row[12])
+                        company_address_fixed = utils.fix_city_name(company_address)
+
                         company_address_slug = slugify(company_address)
-
-                        if company_address_slug == "planqor":
-                            company_address_slug = "planqor-gjakove"
-
-                        if company_address_slug == "pozheran":
-                            company_address_slug = "pozheran-viti"
-
-                        if company_address_slug == "pozhoran":
-                            company_address_slug = "pozheran-viti"
-
-                        if company_address_slug == "gllogoc":
-                            company_address_slug = "drenas"
-
-                        if company_address_slug == "fushekosove-prishtine":
-                            company_address_slug = "fushe-kosove"
-
-                        if company_address_slug == "podueve":
-                            company_address_slug = "podujeve"
-
-                        if company_address_slug == "mitrovic":
-                            company_address_slug = "mitrovice"
-
-                        if company_address_slug == "f-kosove":
-                            company_address_slug = "fushe-kosove"
-
-                        if company_address_slug == "prishtie":
-                            company_address_slug = "prishtine"
-
-                        if company_address_slug == "prishtin":
-                            company_address_slug = "prishtine"
-
-                        if company_address_slug == "prishrine":
-                            company_address_slug = "prishtine"
-
-                        if company_address_slug == "prishtina":
-                            company_address_slug = "prishtine"
-
-                        if company_address_slug == "prshtine":
-                            company_address_slug = "prishtine"
-
-                        if company_address_slug == "prsihtine":
-                            company_address_slug = "prishtine"
-
-                        if company_address_slug == "tira-prish":
-                            company_address_slug = "prishtine"
-
-                        if company_address_slug == "pri-zagreb":
-                            company_address_slug = "prishtine"
-
-                        if company_address_slug == "syhareke":
-                            company_address_slug = "suhareke"
-
-                        if company_address_slug == "fushe-kos":
-                            company_address_slug = "fushe-kosove"
-
-                        if company_address_slug == "fushe-ko":
-                            company_address_slug = "fushe-kosove"
-
-                        if company_address_slug == "gjilan-viti-viti-viti-viti":
-                            company_address_slug = "viti"
-
-                        if company_address_slug == "v-i-t-i":
-                            company_address_slug = "viti"
-
-                        if company_address_slug == "suharek":
-                            company_address_slug = "suhareke"
-
-                        if company_address_slug == "kaqanik":
-                            company_address_slug = "kacanik"
-
-                        if company_address_slug == "kllokot-kamenice":
-                            company_address_slug = "kamenice"
-
+                        company_address_slug_fixed = utils.fix_city_slug(company_address_slug)
 
                         tipi_operatorit = convert_company_type(row[13])
                         afati_kohor = convert_due_time(row[14])
@@ -378,27 +74,20 @@ def parse():
                                 "slug": slugify(company),
                                 "selia": {
                                     "emri": company_address,
-                                    "slug": company_address_slug
+                                    "slug": company_address_slug_fixed
                                 },
                                 "tipi": tipi_operatorit
                             }
                         }
-                        '''
-                        if company_address_slug not in coordinates:
-                            print company_address_slug
 
-                        '''
-                        '''
-                        if company_address_slug != "":
+                        coordinates = utils.get_city_coordinates(company_address_slug_fixed)
+                        if company_address_slug_fixed != "" and coordinates != None:
                             report["kompania"]["selia"]["kordinatat"] = {
-                                'gjeresi': coordinates[company_address_slug]['lat'],
-                                'gjatesi': coordinates[company_address_slug]['lon']
+                                'gjeresi': coordinates['lat'],
+                                'gjatesi': coordinates['lon']
                             }
-                        '''
+
                         line_number = line_number + 1
-                        print str(city) + ": " + "Po procesohet rreshti " + str(line_number) + " viti " + str(year)
-                        print report
-                        print ''
                         collection.insert(report)
 
 def convert_nr(number):
