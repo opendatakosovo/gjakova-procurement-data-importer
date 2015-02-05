@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import csv
 import os
 from datetime import datetime, date
@@ -164,9 +166,9 @@ def convert_buget_type(number):
     if number.find(',') != -1:
         budget_array = []
         if number[:1] == '1':
-            budget_array.append("Te hyrat vetanake")
+            budget_array.append("Të hyrat vetanake")
         if number[2:3] == '2':
-            budget_array.append("Buxheti i Kosoves")
+            budget_array.append("Buxheti i Kosovës")
             return budget_array
         if number[4:5] == '3':
             budget_array.append("Donacion")
@@ -176,9 +178,9 @@ def convert_buget_type(number):
     if value != "":
         num = int(value)
         if num == 1:
-            return "Te hyrat vetanake"
+            return "Të hyrat vetanake"
         elif num == 2:
-            return "Buxheti i Kosoves"
+            return "Buxheti i Kosovës"
         elif num == 3:
             return "Donacion"
     else:
@@ -216,7 +218,7 @@ def convert_procurement_value(num):
         elif number == 3:
             return "Vlere e vogel"
         elif number == 4:
-            return "Vlere  minimale"
+            return "Vlere minimale"
     else:
         return "n/a"
 
