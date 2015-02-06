@@ -303,12 +303,19 @@ class Utils():
     city_slugs_to_fix["fush-kosove"] = "fushe-kosove"
 
     city_name_to_fix = {}
-    city_name_to_fix["Pozheran"] = "Pozheran Viti"
+    city_name_to_fix["Pozheran"] = "Pozheran, Viti"
+    city_name_to_fix["Pozhoran"] = "Pozheran, Viti"
+    city_name_to_fix["PRISHTIN\xc3\x8b"] = "Prishtin\xc3\xab"
     city_name_to_fix["Prishtie"] = "Prishtin\xc3\xab"
     city_name_to_fix["Prishtine"] = "Prishtin\xc3\xab"
+    city_name_to_fix["Pr"] = "Prishtin\xc3\xab"
     city_name_to_fix["prishtin\xc3\xab"] = "Prishtin\xc3\xab"
     city_name_to_fix["prishtine"] = "Prishtin\xc3\xab"
+    city_name_to_fix["PR"] = "Prishtine/xc3/xab"
+    city_name_to_fix["Prishtin"] = "Prishtin\xc3\xab"
     city_name_to_fix["Prishti\xc3\xab"] = "Prishtin\xc3\xab"
+    city_name_to_fix["Prishtin\x5b"] = "Prishtin\xc3\xab"
+    city_name_to_fix["Prishttine"] = "Prishtin\xc3\xab"
     city_name_to_fix["Kllokot, Kamenic\xc3\xab"] = "Kllokot Kamenic\xc3\xab"
     city_name_to_fix["Fushekosove Prishtine"] = "Fush\xc3\xab Kosov\xc3\xab"
     city_name_to_fix["Gjilan Viti Viti Viti Viti"] = "Viti"
@@ -326,51 +333,104 @@ class Utils():
     city_name_to_fix["V i t i"] = "Viti"
     city_name_to_fix["Kamenice"] = "Kamenic\xc3\xab"
     city_name_to_fix["Gjakove"] = "Gjakov\xc3\xab"
-    city_name_to_fix["Planqor,          Gjakove"] = "Planqor Gjakov\xc3\xab"
-    city_name_to_fix["Duzhnje,         Gjakove"] = "Duzhnje Gjakov\xc3\xab"
-    city_name_to_fix["Skivjan,           Gjakove"] = "Skivjan Gjakov\xc3\xab"
-    city_name_to_fix["Meje,               Gjakove"] = "Mej\xc3\xab Gjakov\xc3\xab"
-    city_name_to_fix["Koretin,          Kamenice"] = "Koretin Kamenic\xc3\xab"
-    city_name_to_fix["Qagllavice,      Prishtine"] = "Qagllavic\xc3\xab Prishtin\xc3\xab"
-    city_name_to_fix["Dardani,          Gjakove"] = "Dardani Gjakov\xc3\xab"
-    city_name_to_fix["Sheremet,        Gjakove"] = "Sheremet Gjakov\xc3\xab"
-    city_name_to_fix["Gurakoc,          Istog"] = "Gurakoc Istog"
-    city_name_to_fix["Lipovec-Gjakove"] = "Lipovec Gjakov\xc3\xab"
-    city_name_to_fix["Ujez,Gjakove"] = "Uj\xc3\xabz Gjakov\xc3\xab"
-    city_name_to_fix["PRISHTIN\xc3\x8b"] = "Prishtin\xc3\xab"
+    city_name_to_fix["Planqor,          Gjakove"] = "Plan\xc3\xa7or, Gjakov\xc3\xab"
+    city_name_to_fix["Duzhnje,         Gjakove"] = "Duzhnje, Gjakov\xc3\xab"
+    city_name_to_fix["Skivjan,           Gjakove"] = "Skivjan, Gjakov\xc3\xab"
+    city_name_to_fix["Meje,               Gjakove"] = "Mej\xc3\xab, Gjakov\xc3\xab"
+    city_name_to_fix["Koretin,          Kamenice"] = "Koretin, Kamenic\xc3\xab"
+    city_name_to_fix["Qagllavice,      Prishtine"] = "Qagllavic\xc3\xab, Prishtin\xc3\xab"
+    city_name_to_fix["Dardani,          Gjakove"] = "Dardani, Gjakov\xc3\xab"
+    city_name_to_fix["Sheremet,        Gjakove"] = "Sheremet, Gjakov\xc3\xab"
+    city_name_to_fix["Gurakoc,          Istog"] = "Gurakoc, Istog"
+    city_name_to_fix["Lipovec-Gjakove"] = "Lipovec, Gjakov\xc3\xab"
+    city_name_to_fix["Ujez,Gjakove"] = "Uj\xc3\xabz, Gjakov\xc3\xab"
     city_name_to_fix["VITI"] = "Viti"
     city_name_to_fix["GJILAN"] = "Gjilan"
+    city_name_to_fix["Gjian"] = "Gjilan"
+    city_name_to_fix["GJilan"] = "Gjilan"
+    city_name_to_fix["Gjilna"] = "Gjilan"
+    city_name_to_fix["Gjilanb"] = "Gjilan"
+    city_name_to_fix["Gjialan"] = "Gjilan"
     city_name_to_fix["GLLOGOC"] = "Drenas"
     city_name_to_fix["FUSH\xc3\x8b KOSOV\xc3\x8b"] = "Fush\xc3\xab Kosov\xc3\xab"
-    city_name_to_fix["KA\xc3\x82ANIK"] = "Ka\xc3\xa7anik"
+    city_name_to_fix["KA\xc3\x87ANIK"] = "Ka\xc3\xa7anik"
+    city_name_to_fix["SHT\xc3\x8bRPC\xc3\x8b"] = "Sht\xc3\xabrpc\xc3\xab"
     city_name_to_fix["SHTIME"] = "Shtime"
+    city_name_to_fix["VUSHTRRI"] = "Shtime"
     city_name_to_fix["LIPJAN"] = "Lipjan"
     city_name_to_fix["PODUJEV\xc3\x8b"] = "Podujev\xc3\xab"
     city_name_to_fix["SUHAREK\xc3\x8b"] = "Suharek\xc3\xab"
     city_name_to_fix["FUSH\xc3\x8bKOSOVE PRISHTIN\xc3\x8b"] = "Fush\xc3\xab Kosov\xc3\xab"
     city_name_to_fix["SUHAREK\xc3\x8b"] = "Suharek\xc3\xab"
-    city_name_to_fix["SUHAREK\xc3\x8b"] = "Suharek\xc3\xab"
+    city_name_to_fix["HANI I ELEZIT"] = "Hani i Elezit"
+    city_name_to_fix["DRENAS"] = "Drenas"
+    city_name_to_fix["TIRAN\xc3\x8b"] = "Tiran\xc3\xab"
+    city_name_to_fix["KAMENIC\xc3\x8b"] = "Kamenic\xc3\xab"
+    city_name_to_fix["Fush\xc3\xab Kosove"] = "Fush\xc3\xab Kosov\xc3\xab"
+    city_name_to_fix["Suharek"] = "Suharek\xc3\xab"
+    city_name_to_fix["Gjakov"] = "Gjakov\xc3\xab"
+    city_name_to_fix["kamenic"] = "Kamenic\xc3\xab"
+    city_name_to_fix["Zheger Kk-Gjilan"] = "Zheg\xc3\xabr, Gjilan"
+    city_name_to_fix["Zheg\xc3\xabr"] = "Zheg\xc3\xabr, Gjilan"
+    city_name_to_fix["Koretin"] = "Koretin, Kamenic\xc3\xab"
+    city_name_to_fix["Rogoqic\xc3\xab"] = "Rogo\xc3\xa7ic\xc3\xab, Kamenic\xc3\xab"
+    city_name_to_fix["Velekince"] = "Velekinc\xc3\xab, Gjilan"
+    city_name_to_fix["Mitrovice"] = "Mitrovic\xc3\xab"
+    city_name_to_fix["Livoq i Eperm"] = "Livo\xc3\xa7 i Ep\xc3\xabrm, Gjilan"
+    city_name_to_fix["Gurakocg"] = "Gurrakoc, Istog"
+    city_name_to_fix["Miresh"] = "Miresh, Gjilan"
+    city_name_to_fix["Hodonofc"] = "Hodonoc, Gjilan"
+    city_name_to_fix["Zheger"] = "Zheg\xc3\xabr, Gjilan"
+    city_name_to_fix["PEJ\xc3\x8b"] = "Pej\xc3\xab"
+    city_name_to_fix["Meje,  Gjakove"] = "Mej\xc3\xab, Gjakov\xc3\xab"
+    city_name_to_fix["Planqor"] = "Plan\xc3\xa7or, Gjakov\xc3\xab"
+    city_name_to_fix["Peje"] = "Pej\xc3\xab"
+    city_name_to_fix["Bec, Gjakove"] = "Bec, Gjakov\xc3\xab"
+    city_name_to_fix["Bec,Gjakove"] = "Bec, Gjakov\xc3\xab"
+    city_name_to_fix["Baballoq,Deqan"] = "Baballoq, De\xc3\xa7an"
+    city_name_to_fix["Ujez, Gjakove"] = "Uj\xc3\xabz, Gjakov\xc3\xab"
+    city_name_to_fix["Shiroke,  Suhareke"] = "Shirok/xc3/xab, Suharek\xc3\xab"
+    city_name_to_fix["Meje, Gjakove"] = "Mej\xc3\xab, Gjakov\xc3\xab"
+    city_name_to_fix["Duzhnje, Gjakove"] = "Duzhnje, Gjakov\xc3\xab"
+    city_name_to_fix["Duzhnje,Gjakove"] = "Duzhnje, Gjakov\xc3\xab"
+    city_name_to_fix["Dejne, Rahovec"] = "Dejn\xc3\xab, Rahovec"
+    city_name_to_fix["Skivjan,  Gjakove"] = "Skivjan, Gjakov\xc3\xab"
+    city_name_to_fix["Skivjan,Gjakove"] = "Skivjan, Gjakov\xc3\xab"
+    city_name_to_fix["Koretin, Kamenice"] = "Koretin, Kamenic\xc3\xab"
+    city_name_to_fix["Ujez,  Gjakove"] = "Uj\xc3\xabz, Gjakov\xc3\xab"
+    city_name_to_fix["Meje,Gjakove"] = "Mej\xc3\xab, Gjakov\xc3\xab"
+    city_name_to_fix["Deqan"] = "De\xc3\xa7an"
+    city_name_to_fix["Lipovec,Gjakove"] = "Lipovec, Gjakov\xc3\xab"
+    city_name_to_fix["Marmull,Gjakove"] = "Marmull, Gjakov\xc3\xab"
+    city_name_to_fix["Sheremet,Gjakove"] = "Sheremet, Gjakov\xc3\xab"
+    city_name_to_fix["Gjinoc,Suhareke"] = "Gjinoc, Suharek\xc3\xab"
+    city_name_to_fix["Shupkovc,Mitrovice"] = "Shupkovc, Mitrovic\xc3\xab"
+    city_name_to_fix["Sllup,Deqan"] = "Sllup, De\xc3\xa7an"
+    city_name_to_fix["Bardhaniq,Gjakove"] = "Bardhaniq, Gjakov\xc3\xab"
+    city_name_to_fix["Planqor,Gjakove"] = "Plan\xc3\xa7or, Gjakov\xc3\xab"
+    city_name_to_fix["Novoselle e Poshtme"] = "Novosell\xc3\xab e Poshtme, Gjakov\xc3\xab"
+    city_name_to_fix["F.Kosov\xc3\xab"] = "Fush\xc3\xab Kosov\xc3\xab"
+    city_name_to_fix["Tira-Prish"] = "Prishtin\xc3\xab"
+    city_name_to_fix["Llapnasell\xc3\xab"] = "Llapnasell\xc3\xab, Prishtin\xc3\xab"
+    city_name_to_fix["Pri.Zagreb"] = "Prishtin\xc3\xab"
+    city_name_to_fix["Carralev\xc3\xab"] = "Carralev\xc3\xab, Shtime"
+    city_name_to_fix["Fush\xc3\xab Ko"] = "Fush\xc3\xab Kosov\xc3\xab"
+    city_name_to_fix["Gllogoc"] = "Drenas"
+    city_name_to_fix["Fush\xc3\xab Kos."] = "Fush\xc3\xab Kosov\xc3\xab"
+    city_name_to_fix["Komoran"] = "Komoran, Drenas"
+    city_name_to_fix["Prsihtine"] = "Prishtin\xc3\xab"
 
     def get_city_coordinates(self, city_slug):
         if city_slug in self.coordinates:
             return self.coordinates[city_slug]
         else:
-            '''
-            print "No coordinates found for '%s'" % city_slug
-            '''
             return None
 
     def fix_city_name(self, city_name):
         if city_name not in self.city_name_to_fix:
-            '''
-            print city_name
-            '''
             return city_name
         else:
             fixed_city_name = self.city_name_to_fix[city_name]
-            '''
-            print "Fixed city name from '%s' to '%s'" % (city_name, fixed_city_name)
-            '''
             return fixed_city_name
 
     def fix_city_slug(self, city_slug):
@@ -378,5 +438,4 @@ class Utils():
             return city_slug
         else:
             fixed_city_slug = self.city_slugs_to_fix[city_slug]
-            print "Fixed city slug from '%s' to '%s'" % (city_slug, fixed_city_slug)
             return fixed_city_slug

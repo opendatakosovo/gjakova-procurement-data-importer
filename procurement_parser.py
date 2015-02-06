@@ -45,7 +45,7 @@ def parse():
 
                         company_address = remove_quotes(row[12])
                         company_address_fixed = utils.fix_city_name(company_address)
-
+                        
                         company_address_slug = slugify(company_address)
                         company_address_slug_fixed = utils.fix_city_slug(company_address_slug)
 
@@ -75,7 +75,7 @@ def parse():
                                 "emri": company,
                                 "slug": slugify(company),
                                 "selia": {
-                                    "emri": company_address,
+                                    "emri": company_address_fixed,
                                     "slug": company_address_slug_fixed
                                 },
                                 "tipi": tipi_operatorit
