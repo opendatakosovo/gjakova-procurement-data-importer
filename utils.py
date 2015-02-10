@@ -257,14 +257,24 @@ class Utils():
         "gurrakoc": {
             "lat": 42.725863,
             "lon": 20.474417
+        },
+        "isniq-deqan": {
+            "lat": 42.560414,
+            "lon": 20.301147
+        },
+        "rugove-peje": {
+            "lat": 42.330424,
+            "lon": 20.575762
         }
     }
 
     city_slugs_to_fix = {}
+    city_slugs_to_fix["planor"] = "planqor-gjakove"
     city_slugs_to_fix["planqor"] = "planqor-gjakove"
     city_slugs_to_fix["pozheran"] = "pozheran-viti"
     city_slugs_to_fix["pozhoran"] = "pozheran-viti"
     city_slugs_to_fix["gurakocg"] = "gurrakoc"
+    city_slugs_to_fix["jakove"] = "gjakove"
     city_slugs_to_fix["gllogoc"] = "drenas"
     city_slugs_to_fix["livoq-i-eperm"] = "livoc-i-eperm"
     city_slugs_to_fix["rogoqice"] = "rogocice"
@@ -280,6 +290,7 @@ class Utils():
     city_slugs_to_fix["prishtin"] = "prishtine"
     city_slugs_to_fix["prshtine"] = "prishtine"
     city_slugs_to_fix["prsihtine"] = "prishtine"
+    city_slugs_to_fix["preishtine"] = "prishtine"
     city_slugs_to_fix["tira-prish"] = "prishtine"
     city_slugs_to_fix["pri-zagreb"] = "prishtine"
     city_slugs_to_fix["pr"] = "prishtine"
@@ -303,6 +314,7 @@ class Utils():
     city_slugs_to_fix["zheger-kk-gjilan"] = "zheger"
     city_slugs_to_fix["prishttine"] = "prishtine"
     city_slugs_to_fix["fush-kosove"] = "fushe-kosove"
+    city_slugs_to_fix["rogove"] = "rugove-peje"
 
     city_name_to_fix = {}
     city_name_to_fix["Pozheran"] = "Pozheran, Viti"

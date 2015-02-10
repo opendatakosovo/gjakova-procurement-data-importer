@@ -42,19 +42,20 @@ def parse():
                         contract_price = convert_price(row[9])
                         aneks_contract_price = convert_price(row[10])
                         company = remove_quotes(row[11])
-
+                        komuna_slug = slugify(city)
                         company_address = remove_quotes(row[12])
-                        company_address_fixed = utils.fix_city_name(company_address)
-                        
+                        company_address_fixed = utils.fix_city_name(company_address) 
                         company_address_slug = slugify(company_address)
                         company_address_slug_fixed = utils.fix_city_slug(company_address_slug)
-
                         tipi_operatorit = convert_company_type(row[13])
                         afati_kohor = convert_due_time(row[14])
                         kriteret_per_dhenje_te_kontrates = convert_criteria_type(row[15])
 
                         report = {
-                            "city": city,
+                            "komuna": {
+                                "emri": city,
+                                "slug": komuna_slug
+                            },
                             "viti": int(year),
                             "tipiBugjetit": budget_type,
                             "numri": nr,
