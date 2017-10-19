@@ -107,7 +107,10 @@ def convert_nr(number):
 
 def convert_classification(number):
     if number != "":
-        return number
+        if number.startswith('0'):
+            return str(int(number))
+        else:
+            return number
     else:
         return 0
 
@@ -145,6 +148,8 @@ def convert_price(num):
             return 0
         elif ',' in num:
             return float(num.replace(',', ''))
+        elif num == 'N/A':
+            return 0
         else:
             num = num.decode('unicode_escape').encode('ascii', 'ignore')
             return float(num)
@@ -164,16 +169,15 @@ def remove_quotes(name):
 
 
 def convert_buget_type(number):
-    if number.find(',') != -1:
+    if (number.find('+') != -1) or (number.find(',') != -1):
         budget_array = []
         if number[:1] == '1':
             budget_array.append("Të hyra vetanake")
         if number[2:3] == '2':
             budget_array.append("Buxheti i Kosovës")
-            return budget_array
         if number[4:5] == '3':
             budget_array.append("Donacione")
-            return budget_array
+        return budget_array
 
     value = number[:1]
     if value != "":
@@ -248,6 +252,8 @@ def convert_procurement_procedure(num):
 def convert_company_type(num):
     if num != "":
         if num == "Ferizaj":
+            return "OE Vendor"
+        elif num == 'I':
             return "OE Vendor"
         elif num != "Ferizaj":
             number = int(num)

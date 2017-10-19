@@ -315,6 +315,12 @@ class Utils():
     city_slugs_to_fix["prishttine"] = "prishtine"
     city_slugs_to_fix["fush-kosove"] = "fushe-kosove"
     city_slugs_to_fix["rogove"] = "rugove-peje"
+    city_slugs_to_fix["negrofc-drenas"] = "drenas"
+    city_slugs_to_fix["h-elezit"] = "hani-i-elezit"
+    city_slugs_to_fix["pozheran-prishtine"] = "prishtine"
+    city_slugs_to_fix["prishitne"] = "prishtine"
+    city_slugs_to_fix["viti-1-1-1-44"] = "viti"
+    city_slugs_to_fix["lipjani"] = "lipjan"
 
     city_name_to_fix = {}
     city_name_to_fix["Fushe Kosove"] = "Fushë Kosovë"
@@ -452,6 +458,12 @@ class Utils():
     city_name_to_fix["Fushë Kos."] = "Fushë Kosovë"
     city_name_to_fix["Komoran"] = "Komoran, Drenas"
     city_name_to_fix["Prsihtine"] = "Prishtinë"
+    city_name_to_fix["h-elezit"] = "Hani i Elezit"
+    city_name_to_fix["pozheran-prishtine"] = "Prishtinë"
+    city_name_to_fix["prishitne"] = "Prishtinë"
+    city_name_to_fix["viti-1-1-1-44"] = "Viti"
+    city_name_to_fix["lipjani"] = "Lipjan"
+
 
     def get_city_coordinates(self, city_slug):
         if city_slug in self.coordinates:
