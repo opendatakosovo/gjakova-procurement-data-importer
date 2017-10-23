@@ -10,10 +10,11 @@ collection = db.procurements
 
 
 def modify_company_slug_and_residence():
-    if collection.find({"kompania.selia.emri": "", "kompania.selia.slug": ""}).count() > 0:
+    if collection.find({'$or': [{"kompania.selia.emri": "", "kompania.selia.slug": ""}, {"kompania.selia.emri": " ", "kompania.selia.slug": ""}]}).count() > 0:
         collection.update({
-            "kompania.selia.emri": "",
-            "kompania.selia.slug": ""},{
+            '$or': [{"kompania.selia.emri": "", "kompania.selia.slug": ""},
+                    {"kompania.selia.emri": " ", "kompania.selia.slug": ""}]
+            },{
                 "$set": {
                     "kompania.selia.emri": "n/a",
                     "kompania.selia.slug": "n/a"}},
