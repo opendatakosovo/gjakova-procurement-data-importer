@@ -9,7 +9,7 @@ Importer for procurement data provided by the following  municipalities:
 6. Hani i Elezit
 
 # Installing and running for the first time
-1. Install the app: `bash install.sh`
+1. Install the app: `bash installer.sh`
 2. Run the importer: `bash run.sh`
 
 ## Update database fields
